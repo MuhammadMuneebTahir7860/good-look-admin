@@ -47,7 +47,7 @@ export const doDeleteClient =
   };
 
 export const doUpdateUser =
-  (data, Toast, setSubmitLoading, user, status, name) => async (dispatch) => {
+  (data, Toast, handleCloseUpdate, setSubmitLoading, usere) => async (dispatch) => {
     try {
       setSubmitLoading(true);
       const res = await put(`${endPoint}api/user/updateUser`, {
@@ -57,6 +57,7 @@ export const doUpdateUser =
         type: UPDATE_USER,
         payload: res.data.data,
       });
+      handleCloseUpdate()
       Toast(res?.data?.msg, "success", "colored");
     } catch (error) {
       Toast(error?.response?.data?.msg, "error", "colored");

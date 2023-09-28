@@ -5,6 +5,7 @@ import {
   doGetSupplierById,
   doUpdateSupplier,
 } from "../../redux/actions/SupplierActions";
+import { doUpdateAdmin } from "../../redux/actions/AdminActions";
 
 export default function UsePortfolio() {
   const dispatch = useDispatch();
@@ -24,22 +25,9 @@ export default function UsePortfolio() {
   const [images, setImages] = useState([]);
   useEffect(() => {
     if (data) {
-      dispatch(doGetSupplierById(data?._id, setLoading));
+      setImages(data?.images ? data?.images : []);
     }
   }, [data]);
-  useEffect(() => {
-    if (portfolio) {
-      setCategory(portfolio?.category ? portfolio?.category : "");
-      setInstagram(portfolio?.instagram ? portfolio?.instagram : "");
-      setMessanger(portfolio?.messanger ? portfolio?.messanger : "");
-      setContact(portfolio?.contact ? portfolio?.contact : "");
-      setAbout(portfolio?.about ? portfolio?.about : "");
-      setVideo(portfolio?.video ? portfolio?.video : "");
-      setThumbnail(portfolio?.thumbnail ? portfolio?.thumbnail : "");
-      setImages(portfolio?.images ? portfolio?.images : []);
-      setDiscount(portfolio?.discount ? portfolio?.discount : "");
-    }
-  }, [portfolio]);
 
   const uploadVideo = async (video) => {
     const formData = new FormData();
@@ -67,26 +55,10 @@ export default function UsePortfolio() {
 
   const submitHandler = () => {
     const userData = {
-      thumbnail,
-      discount,
-      category,
-      instagram,
-      messanger,
-      contact,
-      about,
-      video: video.length > 0 ? video : portfolio?.video,
       images: images,
-      _id: portfolio?._id ? portfolio?._id : "",
+      _id: data?._id ? data?._id : "",
     };
-    dispatch(
-      doUpdateSupplier(
-        userData,
-        Toast,
-        setSubmitLoading,
-        data,
-        "Portfolio editing"
-      )
-    );
+    dispatch(doUpdateAdmin(userData, Toast, setSubmitLoading));
   };
 
   const uploadImage = async (image, type) => {

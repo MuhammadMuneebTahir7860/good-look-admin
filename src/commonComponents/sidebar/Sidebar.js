@@ -16,17 +16,17 @@ import logo from "../../assets/logo.png";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import { colors } from "../../constants/Color";
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
-import DryCleaningIcon from '@mui/icons-material/DryCleaning';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
-import BookOnlineIcon from '@mui/icons-material/BookOnline';
-import BookIcon from '@mui/icons-material/Book';
-import EventIcon from '@mui/icons-material/Event';
-import StraightenIcon from '@mui/icons-material/Straighten';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import JoinFullIcon from '@mui/icons-material/JoinFull';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import CalculateIcon from '@mui/icons-material/Calculate';
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import DryCleaningIcon from "@mui/icons-material/DryCleaning";
+import PersonPinIcon from "@mui/icons-material/PersonPin";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import BookIcon from "@mui/icons-material/Book";
+import EventIcon from "@mui/icons-material/Event";
+import StraightenIcon from "@mui/icons-material/Straighten";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import JoinFullIcon from "@mui/icons-material/JoinFull";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import CalculateIcon from "@mui/icons-material/Calculate";
 const drawerWidth = 276;
 function Sidebar(props) {
   const [{ mobileOpen, handleDrawerToggle, menuItems, logoutHandler }] =
@@ -54,7 +54,7 @@ function Sidebar(props) {
     {
       text: "Portfolio",
       icon: <PersonPinIcon />,
-      path: "/order",
+      path: "/portfolio",
     },
     {
       text: "Appointment Booking",
@@ -69,7 +69,7 @@ function Sidebar(props) {
     {
       text: "Users",
       icon: <AccountCircleIcon />,
-      path: "/customers",
+      path: "/users",
     },
     {
       text: "Schedule",
@@ -77,7 +77,7 @@ function Sidebar(props) {
       path: "/customers",
     },
     {
-      text: "Measuremengt",
+      text: "Measurement",
       icon: <StraightenIcon />,
       path: "/customers",
     },

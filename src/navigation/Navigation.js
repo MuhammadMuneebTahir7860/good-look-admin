@@ -16,6 +16,8 @@ import Payment from "../modules/payment/Payment";
 import Customer from "../modules/customer/Customer";
 import Blog from "../modules/blog/Blog";
 import Workers from "../modules/workers/Workers";
+import Users from "../modules/users/Users";
+import Portfolio from "../modules/portfolio/Portfolio";
 export default function Navigation() {
   const authState = useSelector((state) => state.AuthReducer.isUserLoggedIn);
   const role = useSelector((state) => state.AuthReducer.user);
@@ -43,19 +45,27 @@ export default function Navigation() {
             path="/services"
             element={
               <PrivateRouting isAllowed={authState}>
-                {role.role == "admin" && <Services/>}
+                {role.role == "admin" && <Services />}
               </PrivateRouting>
             }
           />
-            <Route
+          <Route
             path="/workers"
             element={
               <PrivateRouting isAllowed={authState}>
-                {role.role == "admin" && <Workers/>}
+                {role.role == "admin" && <Workers />}
               </PrivateRouting>
             }
           />
-            <Route
+          <Route
+            path="/users"
+            element={
+              <PrivateRouting isAllowed={authState}>
+                {role.role == "admin" && <Users />}
+              </PrivateRouting>
+            }
+          />
+          <Route
             path="/blogs"
             element={
               <PrivateRouting isAllowed={authState}>
@@ -64,10 +74,10 @@ export default function Navigation() {
             }
           />
           <Route
-            path="/order"
+            path="/portfolio"
             element={
               <PrivateRouting isAllowed={authState}>
-                {role.role == "admin" && <Order />}
+                {role.role == "admin" && <Portfolio />}
               </PrivateRouting>
             }
           />
