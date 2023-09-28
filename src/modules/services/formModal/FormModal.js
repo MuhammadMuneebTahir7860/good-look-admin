@@ -18,7 +18,6 @@ import { FM } from "./FormModalStyle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { CircleSpinner } from "react-spinners-kit";
 import OverlayLoader from "../../../commonComponents/overlayLoader/OverlayLoader";
-import { colors } from "../../../constants/Color";
 export default function FormModal({
   ctaUpdateHandler,
   profileImg,
@@ -34,7 +33,15 @@ export default function FormModal({
   email,
   setEmail,
   submitLoading,
-  navigateHandler,
+  serviceTitle,
+  description,
+  setDescription,
+  setTitle,
+  addBlogHandler,
+  isEdit,
+  setIsEdit,
+  price,
+  setPrice
 }) {
   const { state, dispatch } = useContext(AppContext);
   const theme = useTheme();
@@ -66,7 +73,7 @@ export default function FormModal({
         }}
       >
         <DialogTitle>
-          Edit
+          {state.modalUpdateFlag ? "Edit" : "Add"}
           <IconButton
             aria-label="close"
             onClick={handleCloseUpdate}
@@ -86,55 +93,43 @@ export default function FormModal({
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
               margin="dense"
-              label={"Name"}
-              name={"Name"}
+              label={"Title"}
+              name={"Title"}
               type={"text"}
               required
               fullWidth
-              value={name}
+              value={serviceTitle}
               variant="standard"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
             <FM.TextInput
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
               margin="dense"
-              label={"Email"}
-              name={"Email"}
+              label={"Description"}
+              name={"Description"}
               type={"text"}
               required
               fullWidth
-              value={email}
+              value={description}
               variant="standard"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             />
             <FM.TextInput
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
               margin="dense"
-              label={"Contact"}
-              name={"Contact"}
-              type={"text"}
+              label={"Price"}
+              name={"Price"}
+              type={"number"}
               required
               fullWidth
-              value={contact}
+              value={price}
               variant="standard"
-              onChange={(e) => setContact(e.target.value)}
+              onChange={(e) => setPrice(e.target.value)}
             />
-            <FM.TextInput
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ disableUnderline: true }}
-              margin="dense"
-              label={"Address"}
-              name={"Address"}
-              type={"text"}
-              required
-              fullWidth
-              value={address}
-              variant="standard"
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <FM.LabelText>Profile picture*</FM.LabelText>
+
+            <FM.LabelText>picture*</FM.LabelText>
             {loading ? (
               <FM.ImageUploaderBtn>
                 <CircleSpinner color="#0D4cb5" height={50} width={50} />
@@ -171,7 +166,6 @@ export default function FormModal({
             )}
           </Box>
           <br />
-          
         </DialogContent>
         <DialogActions>
           <Stack
@@ -181,20 +175,40 @@ export default function FormModal({
             alignItems="center"
           >
             <FM.FormButton
-              style={{ color: `${colors.tomato}` }}
+              style={{ color: "#1E86FF" }}
               variant="outlined"
               onClick={handleCloseUpdate}
             >
               Cancel
             </FM.FormButton>
-            <FM.FormButton
-              style={{ backgroundColor: `${colors.tomato}` }}
-              type="submit"
-              variant="outlined"
-              onClick={() => ctaUpdateHandler(handleCloseUpdate)}
-            >
-              Update
-            </FM.FormButton>
+            {state.modalUpdateFlag ? (
+              <FM.FormButton
+                style={{ backgroundColor: "#DEB18A" }}
+                type="submit"
+                variant="outlined"
+                onClick={() => ctaUpdateHandler(handleCloseUpdate)}
+              >
+                Update
+              </FM.FormButton>
+            ) : (
+              <FM.FormButton
+                style={{ backgroundColor: "#DEB18A" }}
+                type="submit"
+                variant="outlined"
+                onClick={() => addBlogHandler(handleCloseUpdate)}
+              >
+                Submit
+              </FM.FormButton>
+            )}
+            {/* {isEdit ? (
+              <>
+                
+              </>
+            ) : (
+              <>
+               
+              </>
+            )} */}
           </Stack>
         </DialogActions>
       </Dialog>

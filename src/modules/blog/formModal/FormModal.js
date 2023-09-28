@@ -71,7 +71,7 @@ export default function FormModal({
         }}
       >
         <DialogTitle>
-          Edit
+          {state.modalUpdateFlag ? "Edit" : "Add"}
           <IconButton
             aria-label="close"
             onClick={handleCloseUpdate}
@@ -166,22 +166,25 @@ export default function FormModal({
             >
               Cancel
             </FM.FormButton>
-            <FM.FormButton
-              style={{ backgroundColor: "#1E86FF" }}
-              type="submit"
-              variant="outlined"
-              onClick={() => ctaUpdateHandler(handleCloseUpdate)}
-            >
-              Update
-            </FM.FormButton>
-            <FM.FormButton
-              style={{ backgroundColor: "#1E86FF" }}
-              type="submit"
-              variant="outlined"
-              onClick={addBlogHandler}
-            >
-              Submit
-            </FM.FormButton>
+            {state.modalUpdateFlag ? (
+              <FM.FormButton
+                style={{ backgroundColor: "#DEB18A" }}
+                type="submit"
+                variant="outlined"
+                onClick={() => ctaUpdateHandler(handleCloseUpdate)}
+              >
+                Update
+              </FM.FormButton>
+            ) : (
+              <FM.FormButton
+                style={{ backgroundColor: "#DEB18A" }}
+                type="submit"
+                variant="outlined"
+                onClick={() => addBlogHandler(handleCloseUpdate)}
+              >
+                Submit
+              </FM.FormButton>
+            )}
             {/* {isEdit ? (
               <>
                 

@@ -109,7 +109,7 @@ export function UseBlog() {
       img: profileImg ? profileImg : "",
       createdAt: new Date(),
     };
-    dispatch(doAddBlog(data, Toast, setSubmitLoading, user));
+    dispatch(doAddBlog(data, Toast, setSubmitLoading, user,handleCloseUpdate));
   };
   const dataViewHandler = (row) => {
     handleCloseModal();

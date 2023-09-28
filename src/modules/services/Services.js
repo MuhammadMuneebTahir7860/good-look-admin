@@ -3,7 +3,7 @@ import CommonTableLoader from "../../commonComponents/commonTableLoader/CommonTa
 import NewTable from "./newTable/NewTable";
 import TransitionsModal from "../../commonComponents/transitionsModal/TransitionsModal";
 import { UseServices } from "./UseServices";
-import UsersViewModal from "./ServicesViewModal";
+import ServiceViewModal from "./ServicesViewModal";
 export default function Services() {
   const [
     {
@@ -33,8 +33,15 @@ export default function Services() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler
+      title,
+      description,
+      setDescription,
+      setTitle,
+      addBlogHandler,
+      isEdit,
+      setIsEdit,
+      price,
+      setPrice,
     },
   ] = UseServices();
   if (getLoading) {
@@ -48,30 +55,20 @@ export default function Services() {
         setOpen={setDelModal}
       />
       <NewTable
-        title={"All Services"}
+        title={"Services"}
         tableHeadings={[
           {
-            id: "fullName",
-            Label: "Full Name",
+            id: "Title",
+            Label: "Title",
           },
           {
-            id: "email",
-            Label: "Email",
-          }, {
-            id: "contact",
-            Label: "Contact",
+            id: "description",
+            Label: "Description",
           },
-
           {
-            id: "registeredAt",
-            Label: "Registered At",
+            id: "price",
+            Label: "Price",
           },
-         
-          {
-            id: "Details",
-            Label: "Details",
-          },
-
           {
             id: "actions",
             Label: "Actions",
@@ -82,11 +79,18 @@ export default function Services() {
         profileImg={profileImg}
         setProfileImg={setProfileImg}
         updateHandler={updateHandler}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
         uploadImage={uploadImage}
         loading={loading}
         imgDeleteHandler={imgDeleteHandler}
         name={name}
+        serviceTitle={title}
+        description={description}
+        setTitle={setTitle}
+        setDescription={setDescription}
         setName={setName}
+        addBlogHandler={addBlogHandler}
         contact={contact}
         setContact={setContact}
         address={address}
@@ -95,18 +99,17 @@ export default function Services() {
         setEmail={setEmail}
         submitLoading={submitLoading}
         deleteHandler={deleteHandler}
-        navigateHandler={navigateHandler}
         delModal={delModal}
         setDelModal={setDelModal}
         ctaDeleteHandler={ctaDeleteHandler}
         dataViewHandler={dataViewHandler}
-        publishHandler={publishHandler}
+        price={price}
+        setPrice={setPrice}
       />
-      <UsersViewModal
+      <ServiceViewModal
         openModal={openModal}
         handleCloseModal={handleCloseModal}
         viewData={viewData}
-        navigateHandler={navigateHandler}
       />
     </>
   );

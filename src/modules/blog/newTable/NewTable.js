@@ -21,6 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import UseWindowDimensions from "../../../customHooks/UseWindowDimensions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { faListNumeric } from "@fortawesome/free-solid-svg-icons";
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -241,15 +242,28 @@ export default function NewTable({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const handleClickOpen = (row) => {
-    dispatch({
-      type: "setModal",
-      payload: {
-        modalUpdateFlag: true,
-        openFormModal: true,
-      },
-    });
-    updateHandler(row);
+  const handleClickOpen = (row, type) => {
+    if (type === "update") {
+      setBlogTitle("");
+      setDescription("");
+      setProfileImg("");
+      dispatch({
+        type: "setModal",
+        payload: {
+          modalUpdateFlag: true,
+          openFormModal: true,
+        },
+      });
+      updateHandler(row);
+    } else {
+      dispatch({
+        type: "setModal",
+        payload: {
+          modalUpdateFlag: false,
+          openFormModal: true,
+        },
+      });
+    }
   };
 
   //open dropDown panel
@@ -389,7 +403,7 @@ export default function NewTable({
                             sx={{
                               marginRight: 2,
                               cursor: "pointer",
-                              color:'#DEB18A'
+                              color: "#DEB18A",
                             }}
                             onClick={() => dataViewHandler(row)}
                           />
@@ -402,7 +416,7 @@ export default function NewTable({
                             }}
                           />
                           <EditIcon
-                            onClick={() => handleClickOpen(row)}
+                            onClick={() => handleClickOpen(row, "update")}
                             sx={{ cursor: "pointer", color: "#1E86FF" }}
                           />
                         </TableCell>

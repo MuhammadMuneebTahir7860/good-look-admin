@@ -4,9 +4,14 @@ import Toast from "../../commonComponents/toast/Toast";
 import {
   doDeleteClient,
   doGetClients,
-  doUpdateUser,
+  doUpdateClient,
 } from "../../redux/actions/ClientActions";
-import { useNavigate } from "react-router-dom";
+import {
+  doAddBlog,
+  doDeleteBlog,
+  doUpdateBlog,
+  getAllBlogs,
+} from "../../redux/actions/ServiceActions";
 
 export function UseServices() {
   const [getLoading, setGetLoading] = useState(false);
@@ -14,21 +19,29 @@ export function UseServices() {
   useEffect(() => {
     dispatch(doGetClients(setGetLoading));
   }, []);
-  const data = useSelector((state) => state.ClientReducer.clients);
+  useEffect(() => {
+    dispatch(getAllBlogs(setGetLoading));
+  }, []);
+
+  const data = useSelector((state) => state.ServiceReducer?.allServices);
   const user = useSelector((state) => state.AuthReducer.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [profileImg, setProfileImg] = useState("");
+
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [profileImg, setProfileImg] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [delId, setDelId] = useState("");
   const [delModal, setDelModal] = useState(false);
-  const [clientId, setClientId] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [blogId, setBlogId] = useState("");
   const [viewData, setViewData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const uploadImage = async (image) => {
     const formData = new FormData();
     const imgFile = image.target.files[0];
@@ -57,26 +70,27 @@ export function UseServices() {
   };
 
   const updateHandler = (item) => {
-    setClientId(item?._id);
-    setName(item?.name);
-    setEmail(item?.email);
-    setAddress(item?.address);
-    setContact(item?.contact);
+    setBlogId(item?._id);
+    setTitle(item?.title);
+    setPrice(item?.price)
+    setDescription(item?.description);
     setProfileImg(item?.img);
+    setIsEdit(true);
   };
 
   const ctaUpdateHandler = async (handleCloseUpdate) => {
     const data = {
-      email: email,
-      name,
-      address,
-      contact,
+      title: title,
+      price,
+      description: description,
       img: profileImg,
-      _id: clientId,
-      // createAt: new Date(),
+      _id: blogId,
     };
-    dispatch();
-    // doUpdateClient(data, Toast, handleCloseUpdate, setSubmitLoading, user)
+    console.log(data,'data');
+    dispatch(
+      doUpdateBlog(data, Toast, handleCloseUpdate, setSubmitLoading, user)
+    );
+    setIsEdit(false);
   };
 
   const deleteHandler = (id) => {
@@ -84,35 +98,28 @@ export function UseServices() {
     setDelModal(!delModal);
   };
   const ctaDeleteHandler = () => {
-    dispatch(doDeleteClient(delId, Toast, setSubmitLoading, setDelModal, user));
+    dispatch(doDeleteBlog(delId, Toast, setSubmitLoading, setDelModal, user));
   };
   const handleCloseModal = () => {
     setOpenModal(!openModal);
+  };
+
+  const addBlogHandler = (handleCloseUpdate) => {
+    console.log(price);
+    let data = {
+      title: title,
+      price,
+      description: description,
+      img: profileImg ? profileImg : "",
+      createdAt: new Date(),
+    };
+    dispatch(doAddBlog(data, Toast, setSubmitLoading, user,handleCloseUpdate));
   };
   const dataViewHandler = (row) => {
     handleCloseModal();
     setViewData(row);
   };
 
-  const navigateHandler = (id) => {
-    console.log(id, "id");
-    navigate(`/products/${id}`);
-  };
-  const publishHandler = (row) => {
-    const data = {
-      publish: !row?.publish,
-      _id: row?._id,
-    };
-    dispatch(
-      doUpdateUser(
-        data,
-        Toast,
-        setSubmitLoading,
-        user,
-        data?.publish ? "publishing" : "UnPublishing"
-      )
-    );
-  };
   return [
     {
       getLoading,
@@ -141,8 +148,14 @@ export function UseServices() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler,
+      title,
+      description,
+      setDescription,
+      setTitle,
+      addBlogHandler,
+      isEdit,
+      setIsEdit,
+      price, setPrice,
     },
   ];
 }

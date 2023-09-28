@@ -8,14 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import { Button } from "@mui/material";
-import { colors } from "../../constants/Color";
 
-export default function UsersViewModal({
+export default function ServiceViewModal({
   openModal,
   handleCloseModal,
   viewData,
-  navigateHandler,
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -52,55 +49,26 @@ export default function UsersViewModal({
           <Box>
             <Grid container sx={{ marginBottom: 2 }} spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Name:
+                Title:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.name}
+                {viewData?.title}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Email:
+                Description:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.email}
+                {viewData?.description}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Address:
+                Price:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.address}
-              </Grid>
-            </Grid>
-            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
-              <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Contact:
-              </Grid>
-              <Grid align="right" item xs={6}>
-                {viewData?.contact}
-              </Grid>
-            </Grid>
-            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
-              <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Registered at:
-              </Grid>
-              <Grid align="right" item xs={6}>
-                {new Date(viewData?.createAt)?.toLocaleDateString()}
-              </Grid>
-            </Grid>
-            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
-              <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Get More Detail
-              </Grid>
-              <Grid align="right" item xs={6}>
-                <Button
-                  onClick={() => navigateHandler(viewData?._id)}
-                  sx={{ color: "white", backgroundColor: `${colors.tomato}` }}
-                >
-                  Products
-                </Button>
+                {viewData?.price}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
