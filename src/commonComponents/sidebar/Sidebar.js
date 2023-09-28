@@ -95,7 +95,7 @@ function Sidebar(props) {
     {
       text: "Workers",
       icon: <EngineeringIcon />,
-      path: "/customers",
+      path: "/workers",
     },
     {
       text: "Profit Calculator",

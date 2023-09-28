@@ -15,6 +15,7 @@ import Order from "../modules/orders/Order";
 import Payment from "../modules/payment/Payment";
 import Customer from "../modules/customer/Customer";
 import Blog from "../modules/blog/Blog";
+import Workers from "../modules/workers/Workers";
 export default function Navigation() {
   const authState = useSelector((state) => state.AuthReducer.isUserLoggedIn);
   const role = useSelector((state) => state.AuthReducer.user);
@@ -43,6 +44,14 @@ export default function Navigation() {
             element={
               <PrivateRouting isAllowed={authState}>
                 {role.role == "admin" && <Services/>}
+              </PrivateRouting>
+            }
+          />
+            <Route
+            path="/workers"
+            element={
+              <PrivateRouting isAllowed={authState}>
+                {role.role == "admin" && <Workers/>}
               </PrivateRouting>
             }
           />

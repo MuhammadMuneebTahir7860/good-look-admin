@@ -8,10 +8,12 @@ import ProductReducer from "./reducers/ProductReducer";
 import OrderReducer from "./reducers/OrderReducer";
 import BlogReducer from "./reducers/BlogReducer";
 import ServiceReducer from "./reducers/ServiceReducer";
+import WorkerReducer from "./reducers/WorkerReducer";
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
   ServiceReducer,
+  WorkerReducer,
   SupplierReducer,
   ClientReducer,
   AuditLogsReducer,
