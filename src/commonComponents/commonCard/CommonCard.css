@@ -1,0 +1,55 @@
+.commonCard {
+    width: 98%;
+    min-height: 300px;
+    border-radius: 10px;
+  border: 0.5px solid rgb(107, 106, 106);
+  }
+  
+  .commonCard-img {
+    width: 100%;
+    height: 170px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+    object-fit: cover;
+  }
+  .commonCard:hover {
+    transform: scale(1.07);
+    transition: ease 0.5s;
+  }
+  
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 90%;
+    text-transform: capitalize;
+  }
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+  .commonCard-btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .buy-now-btn {
+    background-color: tomato;
+    color: white;
+    border: none;
+    width: 100%;
+    font-size: 12px;
+    padding: 5px 0px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  .buy-now-btn:hover {
+    background-color: black;
+    color: white;
+  }
+  
