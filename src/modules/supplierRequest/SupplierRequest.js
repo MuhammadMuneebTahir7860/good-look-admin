@@ -2,9 +2,9 @@ import React from "react";
 import CommonTableLoader from "../../commonComponents/commonTableLoader/CommonTableLoader";
 import NewTable from "./newTable/NewTable";
 import TransitionsModal from "../../commonComponents/transitionsModal/TransitionsModal";
-import { UseUsers } from "./UseUsers";
-import UsersViewModal from "./UsersViewModal";
-export default function Users() {
+// import ClientViewModal from "./ClientViewModal";
+import { UseSupplierRequest } from "./UseSupplierRequest";
+export default function SupplierRequest() {
   const [
     {
       getLoading,
@@ -33,10 +33,8 @@ export default function Users() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler
     },
-  ] = UseUsers();
+  ] = UseSupplierRequest();
   if (getLoading) {
     return <CommonTableLoader />;
   }
@@ -48,26 +46,34 @@ export default function Users() {
         setOpen={setDelModal}
       />
       <NewTable
-        title={"All Users"}
+        title={"Resquests"}
         tableHeadings={[
           {
-            id: "fullName",
-            Label: "Full Name",
+            id: "clientName",
+            Label: "Worker Name",
           },
           {
             id: "email",
             Label: "Email",
           },
           {
-            id: "registeredAt",
-            Label: "Registered At",
-          },
-         
-          {
-            id: "Details",
-            Label: "Details",
+            id: "contact",
+            Label: "Contact",
           },
 
+          {
+            id: "address",
+            Label: "Address",
+          },
+          // {
+          //   id: "registeredAt",
+          //   Label: "Registered At",
+          // },
+
+          // {
+          //   id: "Details",
+          //   Label: "Details",
+          // },
           {
             id: "actions",
             Label: "Actions",
@@ -91,19 +97,16 @@ export default function Users() {
         setEmail={setEmail}
         submitLoading={submitLoading}
         deleteHandler={deleteHandler}
-        navigateHandler={navigateHandler}
         delModal={delModal}
         setDelModal={setDelModal}
         ctaDeleteHandler={ctaDeleteHandler}
         dataViewHandler={dataViewHandler}
-        publishHandler={publishHandler}
       />
-      <UsersViewModal
+      {/* <ClientViewModal
         openModal={openModal}
         handleCloseModal={handleCloseModal}
         viewData={viewData}
-        navigateHandler={navigateHandler}
-      />
+      /> */}
     </>
   );
 }

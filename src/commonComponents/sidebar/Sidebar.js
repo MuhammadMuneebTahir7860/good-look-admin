@@ -59,7 +59,7 @@ function Sidebar(props) {
     {
       text: "Appointment Booking",
       icon: <BookOnlineIcon />,
-      path: "/payment",
+      path: "/appointmentBooking",
     },
     {
       text: "Blogs",
@@ -74,23 +74,23 @@ function Sidebar(props) {
     {
       text: "Schedule",
       icon: <EventIcon />,
-      path: "/customers",
+      path: "/schedule",
     },
     {
       text: "Measurement",
       icon: <StraightenIcon />,
-      path: "/customers",
+      path: "/measurement",
     },
     {
       text: "Billing",
       icon: <ReceiptIcon />,
-      path: "/customers",
+      path: "/billing",
     },
 
     {
       text: "Join us requests",
       icon: <JoinFullIcon />,
-      path: "/customers",
+      path: "/requests",
     },
     {
       text: "Workers",
@@ -100,7 +100,7 @@ function Sidebar(props) {
     {
       text: "Profit Calculator",
       icon: <CalculateIcon />,
-      path: "/customers",
+      path: "/profitCalculator",
     },
   ];
   //List Item
@@ -153,7 +153,7 @@ function Sidebar(props) {
   return (
     <SidebarStyle.Box>
       <CssBaseline />
-      <SidebarStyle.AppBar elevation={0} position="fixed" open={mobileOpen}>
+      <SidebarStyle.AppBar elevation={1} position="fixed" open={mobileOpen}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <SidebarStyle.IconButton
             aria-label="open drawer"

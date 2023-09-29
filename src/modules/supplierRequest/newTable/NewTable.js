@@ -21,10 +21,6 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import UseWindowDimensions from "../../../customHooks/UseWindowDimensions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import PublishIcon from "@mui/icons-material/Publish";
-import { colors } from "../../../constants/Color";
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -224,8 +220,6 @@ export default function NewTable({
   setDelModal,
   ctaDeleteHandler,
   dataViewHandler,
-  navigateHandler,
-  publishHandler,
 }) {
   const { state, dispatch } = React.useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -257,9 +251,7 @@ export default function NewTable({
   //close dropDown panel
   const searchingFor = (searchQuery) => {
     return function (data) {
-      return data?.fullName
-        ?.toLowerCase()
-        ?.includes(searchQuery?.toLowerCase());
+      return (data?.name).toLowerCase().includes(searchQuery?.toLowerCase());
     };
   };
   const handleRequestSort = (event, property) => {
@@ -371,59 +363,25 @@ export default function NewTable({
                   return (
                     <>
                       <TableRow tabIndex={-1} key={index} sx={{ height: 60 }}>
-                        <TableCell align="left"></TableCell>
-                        <TableCell align="left">{row?.fullName}</TableCell>
-                        <TableCell align="left" sx={{ maxWidth: "270px" }}>
-                          {row.email}
-                        </TableCell>
-                        <TableCell align="left">
+                        <TableCell></TableCell>
+                        <TableCell align="left">{row?.name}</TableCell>
+                        <TableCell align="left">{row.email}</TableCell>
+                        <TableCell align="left">{row.business}</TableCell>
+                        <TableCell align="left">{row.contact}</TableCell>
+                        <TableCell align="left">{row.address}</TableCell>
+                        {/* <TableCell align="left">
                           {new Date(row?.createAt)?.toLocaleDateString()}
-                        </TableCell>
+                        </TableCell> */}
+
                         <TableCell align="left">
-                          <Button
-                            onClick={() => dataViewHandler(row)}
+                          <DeleteIcon
+                            onClick={() => deleteHandler(row?._id)}
                             sx={{
-                              backgroundColor: `${colors.tomato}`,
-                              color: "#fff",
-                            }}
-                          >
-                            <VisibilityIcon />
-                          </Button>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
-                            sx={{
-                              backgroundColor: row?.publish
-                                ? `${colors.tomato}`
-                                : `${colors.lightBlue}`,
+                              color: "red",
+                              marginRight: 2,
                               cursor: "pointer",
-                              color: "white",
-                              marginRight: "5px ",
                             }}
-                            onClick={() => publishHandler(row)}
-                          >
-                            {row.publish ? "Unbloc" : "Block"}
-                          </Button>
-                          <Button
-                            sx={{
-                              backgroundColor: `${colors.tomato}`,
-                              marginRight: "6px",
-                            }}
-                          >
-                            <DeleteIcon
-                              onClick={() => deleteHandler(row?._id)}
-                              sx={{
-                                color: "white",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </Button>
-                          <Button
-                            sx={{ backgroundColor: "green", cursor: "pointer" }}
-                            onClick={() => handleClickOpen(row)}
-                          >
-                            <EditIcon sx={{ color: "white" }} />
-                          </Button>
+                          />
                         </TableCell>
                       </TableRow>
                     </>

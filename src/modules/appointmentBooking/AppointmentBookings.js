@@ -2,9 +2,9 @@ import React from "react";
 import CommonTableLoader from "../../commonComponents/commonTableLoader/CommonTableLoader";
 import NewTable from "./newTable/NewTable";
 import TransitionsModal from "../../commonComponents/transitionsModal/TransitionsModal";
-import { UseUsers } from "./UseUsers";
-import UsersViewModal from "./UsersViewModal";
-export default function Users() {
+import AppointmentBookingViewModal from "./AppointmetBookingViewModal";
+import { UseAppointmentBooking } from "./UseAppointmentBooking";
+export default function AppointmentBookings() {
   const [
     {
       getLoading,
@@ -34,9 +34,10 @@ export default function Users() {
       handleCloseModal,
       openModal,
       navigateHandler,
-      publishHandler
+      publishHandler,
+      ctaApprovedHandler,
     },
-  ] = UseUsers();
+  ] = UseAppointmentBooking();
   if (getLoading) {
     return <CommonTableLoader />;
   }
@@ -48,26 +49,32 @@ export default function Users() {
         setOpen={setDelModal}
       />
       <NewTable
-        title={"All Users"}
+        title={"Appointments"}
         tableHeadings={[
           {
-            id: "fullName",
-            Label: "Full Name",
+            id: "name",
+            Label: "Name",
           },
           {
             id: "email",
             Label: "Email",
           },
           {
-            id: "registeredAt",
-            Label: "Registered At",
+            id: "contact",
+            Label: "Contact",
           },
-         
+          {
+            id: "address",
+            Label: "Address",
+          },
+          {
+            id: "visitDate",
+            Label: "Visit Date",
+          },
           {
             id: "Details",
             Label: "Details",
           },
-
           {
             id: "actions",
             Label: "Actions",
@@ -82,6 +89,7 @@ export default function Users() {
         loading={loading}
         imgDeleteHandler={imgDeleteHandler}
         name={name}
+        ctaApprovedHandler={ctaApprovedHandler}
         setName={setName}
         contact={contact}
         setContact={setContact}
@@ -98,11 +106,10 @@ export default function Users() {
         dataViewHandler={dataViewHandler}
         publishHandler={publishHandler}
       />
-      <UsersViewModal
+      <AppointmentBookingViewModal
         openModal={openModal}
         handleCloseModal={handleCloseModal}
         viewData={viewData}
-        navigateHandler={navigateHandler}
       />
     </>
   );

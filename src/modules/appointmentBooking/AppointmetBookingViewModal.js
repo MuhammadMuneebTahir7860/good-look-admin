@@ -8,14 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import { Button } from "@mui/material";
-import { colors } from "../../constants/Color";
 
-export default function UsersViewModal({
+export default function AppointmentBookingViewModal({
   openModal,
   handleCloseModal,
   viewData,
-  navigateHandler,
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -55,7 +52,7 @@ export default function UsersViewModal({
                 Name:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.name}
+                {viewData?.userId?.name}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
@@ -63,31 +60,47 @@ export default function UsersViewModal({
                 Email:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.email}
+                {viewData?.userId?.email}
               </Grid>
             </Grid>
-            {/* <Grid sx={{ marginBottom: 2 }} container spacing={2}>
+            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Address:
+                Product Title:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.address}
+                {viewData?.productId?.title}
               </Grid>
-            </Grid> */}
-            {/* <Grid sx={{ marginBottom: 2 }} container spacing={2}>
+            </Grid>
+            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Contact:
+                Seller Name:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.contact}
+                {viewData?.sellerId?.name}
               </Grid>
-            </Grid> */}
+            </Grid>
+            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
+              <Grid sx={{ fontWeight: "bold" }} item xs={6}>
+                Seller Email:
+              </Grid>
+              <Grid align="right" item xs={6}>
+                {viewData?.sellerId?.email}
+              </Grid>
+            </Grid>
+            <Grid sx={{ marginBottom: 2 }} container spacing={2}>
+              <Grid sx={{ fontWeight: "bold" }} item xs={6}>
+                Amount:
+              </Grid>
+              <Grid align="right" item xs={6}>
+                {viewData?.amount}
+              </Grid>
+            </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
                 Registered at:
               </Grid>
               <Grid align="right" item xs={6}>
-                {new Date(viewData?.createAt)?.toLocaleDateString()}
+                {new Date(viewData?.createdAt)?.toLocaleDateString()}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>

@@ -21,10 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import UseWindowDimensions from "../../../customHooks/UseWindowDimensions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import PublishIcon from "@mui/icons-material/Publish";
-import { colors } from "../../../constants/Color";
-
+import { faListNumeric } from "@fortawesome/free-solid-svg-icons";
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -137,7 +134,9 @@ const EnhancedTableToolbar = (props) => {
         <Typography variant="h6" id="tableTitle" component="div">
           {toolBarTitle}
         </Typography>
-        <div>{/* <AddButton handleClickOpen={handleClickOpen} /> */}</div>
+        <div>
+          <AddButton handleClickOpen={handleClickOpen} />
+        </div>
       </Toolbar>
       <Divider />
     </>
@@ -224,8 +223,20 @@ export default function NewTable({
   setDelModal,
   ctaDeleteHandler,
   dataViewHandler,
-  navigateHandler,
-  publishHandler,
+  blogTitle,
+  description,
+  setDescription,
+  setBlogTitle,
+  addBlogHandler,
+  isEdit,
+  setIsEdit,
+  billingData,
+  setBillingData,
+  handleAddBilling,
+  billings,
+  setBillings,
+  userData,
+  setUserData,
 }) {
   const { state, dispatch } = React.useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -238,15 +249,28 @@ export default function NewTable({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const handleClickOpen = (row) => {
-    dispatch({
-      type: "setModal",
-      payload: {
-        modalUpdateFlag: true,
-        openFormModal: true,
-      },
-    });
-    updateHandler(row);
+  const handleClickOpen = (row, type) => {
+    if (type === "update") {
+      setBlogTitle("");
+      setDescription("");
+      setProfileImg("");
+      dispatch({
+        type: "setModal",
+        payload: {
+          modalUpdateFlag: true,
+          openFormModal: true,
+        },
+      });
+      updateHandler(row);
+    } else {
+      dispatch({
+        type: "setModal",
+        payload: {
+          modalUpdateFlag: false,
+          openFormModal: true,
+        },
+      });
+    }
   };
 
   //open dropDown panel
@@ -257,9 +281,7 @@ export default function NewTable({
   //close dropDown panel
   const searchingFor = (searchQuery) => {
     return function (data) {
-      return data?.fullName
-        ?.toLowerCase()
-        ?.includes(searchQuery?.toLowerCase());
+      return (data?.userData?.userId).toLowerCase().includes(searchQuery?.toLowerCase());
     };
   };
   const handleRequestSort = (event, property) => {
@@ -285,8 +307,15 @@ export default function NewTable({
       <FormModal
         ctaUpdateHandler={ctaUpdateHandler}
         profileImg={profileImg}
+        blogTitle={blogTitle}
+        description={description}
+        setDescription={setDescription}
+        setBlogTitle={setBlogTitle}
         setProfileImg={setProfileImg}
         updateHandler={updateHandler}
+        addBlogHandler={addBlogHandler}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
         uploadImage={uploadImage}
         loading={loading}
         imgDeleteHandler={imgDeleteHandler}
@@ -302,6 +331,13 @@ export default function NewTable({
         delModal={delModal}
         setDelModal={setDelModal}
         ctaDeleteHandler={ctaDeleteHandler}
+        billingData={billingData}
+        setBillingData={setBillingData}
+        handleAddBilling={handleAddBilling}
+        billings={billings}
+        setBillings={setBillings}
+        userData={userData}
+        setUserData={setUserData}
       />
       {/* Form Modal */}
       <NewTableStyle.Paper>
@@ -330,7 +366,7 @@ export default function NewTable({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </NewTableStyle.PaginationContainer>
-
+          
           <Hidden smDown>
             <GlobalSearch
               placeholder="Search"
@@ -371,59 +407,43 @@ export default function NewTable({
                   return (
                     <>
                       <TableRow tabIndex={-1} key={index} sx={{ height: 60 }}>
-                        <TableCell align="left"></TableCell>
-                        <TableCell align="left">{row?.fullName}</TableCell>
-                        <TableCell align="left" sx={{ maxWidth: "270px" }}>
-                          {row.email}
+                        <TableCell></TableCell>
+                        <TableCell align="left">
+                          {row?.userData?.userName}
                         </TableCell>
                         <TableCell align="left">
-                          {new Date(row?.createAt)?.toLocaleDateString()}
+                          {row?.userData?.userId}
                         </TableCell>
                         <TableCell align="left">
-                          <Button
-                            onClick={() => dataViewHandler(row)}
+                          {row?.userData?.phone}
+                        </TableCell>
+                        <TableCell align="left">
+                          {row?.userData?.address}
+                        </TableCell>
+                        <TableCell align="left">
+                          {new Date(row?.createdAt)?.toLocaleDateString()}
+                        </TableCell>
+                        <TableCell align="left">
+                          <VisibilityIcon
                             sx={{
-                              backgroundColor: `${colors.tomato}`,
-                              color: "#fff",
-                            }}
-                          >
-                            <VisibilityIcon />
-                          </Button>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
-                            sx={{
-                              backgroundColor: row?.publish
-                                ? `${colors.tomato}`
-                                : `${colors.lightBlue}`,
+                              marginRight: 2,
                               cursor: "pointer",
-                              color: "white",
-                              marginRight: "5px ",
+                              color: "#DEB18A",
                             }}
-                            onClick={() => publishHandler(row)}
-                          >
-                            {row.publish ? "Unbloc" : "Block"}
-                          </Button>
-                          <Button
+                            onClick={() => dataViewHandler(row)}
+                          />
+                          <DeleteIcon
+                            onClick={() => deleteHandler(row?._id)}
                             sx={{
-                              backgroundColor: `${colors.tomato}`,
-                              marginRight: "6px",
+                              color: "red",
+                              marginRight: 2,
+                              cursor: "pointer",
                             }}
-                          >
-                            <DeleteIcon
-                              onClick={() => deleteHandler(row?._id)}
-                              sx={{
-                                color: "white",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </Button>
-                          <Button
-                            sx={{ backgroundColor: "green", cursor: "pointer" }}
-                            onClick={() => handleClickOpen(row)}
-                          >
-                            <EditIcon sx={{ color: "white" }} />
-                          </Button>
+                          />
+                          <EditIcon
+                            onClick={() => handleClickOpen(row, "update")}
+                            sx={{ cursor: "pointer", color: "#1E86FF" }}
+                          />
                         </TableCell>
                       </TableRow>
                     </>

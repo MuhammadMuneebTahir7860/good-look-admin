@@ -108,7 +108,7 @@ export default function FormModal({
               variant="standard"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <FM.TextInput
+            {/* <FM.TextInput
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
               margin="dense"
@@ -120,8 +120,8 @@ export default function FormModal({
               value={contact}
               variant="standard"
               onChange={(e) => setContact(e.target.value)}
-            />
-            <FM.TextInput
+            /> */}
+            {/* <FM.TextInput
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
               margin="dense"
@@ -133,7 +133,7 @@ export default function FormModal({
               value={address}
               variant="standard"
               onChange={(e) => setAddress(e.target.value)}
-            />
+            /> */}
             <FM.LabelText>Profile picture*</FM.LabelText>
             {loading ? (
               <FM.ImageUploaderBtn>

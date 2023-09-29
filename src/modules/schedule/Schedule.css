@@ -1,0 +1,71 @@
+/* Schedule.css */
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .schedule-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .schedule-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .schedule-item {
+    font-size: 18px;
+    margin: 10px;
+  }
+  
+  .add-schedule-container {
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .add-schedule-heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .schedule-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .schedule-select,
+  .schedule-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+  
+  .schedule-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .schedule-button:hover {
+    background-color: #0056b3;
+  }
+  

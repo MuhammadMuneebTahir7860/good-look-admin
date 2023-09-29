@@ -1,0 +1,37 @@
+/* ProfitCalculator.css */
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+    color: white; /* Set text color to white */
+  }
+  
+  .input-container {
+    margin-bottom: 10px;
+  }
+  
+  .styled-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    color: black; /* Set text color to black for input fields */
+  }
+  
+  .calculate-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .calculate-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .result-container {
+    margin-top: 20px;
+  }
+  

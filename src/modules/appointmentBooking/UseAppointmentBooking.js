@@ -8,7 +8,7 @@ import {
   getAllOrders,
 } from "../../redux/actions/OrderAction";
 
-export function UserOrder() {
+export function UseAppointmentBooking() {
   const [getLoading, setGetLoading] = useState(false);
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.OrderReducer.allOrders);

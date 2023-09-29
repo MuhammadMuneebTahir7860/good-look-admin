@@ -5,31 +5,53 @@ import {
   doDeleteClient,
   doGetClients,
   doUpdateClient,
-  doUpdateUser,
 } from "../../redux/actions/ClientActions";
-import { useNavigate } from "react-router-dom";
+import {
+  doAddBlog,
+  doDeleteBlog,
+  doUpdateBlog,
+  getAllBlogs,
+} from "../../redux/actions/BillingActions";
 
-export function UseUsers() {
+export function UseBilling() {
   const [getLoading, setGetLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(doGetClients(setGetLoading));
   }, []);
-  const data = useSelector((state) => state.ClientReducer.clients);
+  useEffect(() => {
+    dispatch(getAllBlogs(setGetLoading));
+  }, []);
+
+  const data = useSelector((state) => state.BillingReducer?.allBillings);
   const user = useSelector((state) => state.AuthReducer.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [blogTitle, setBlogTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [profileImg, setProfileImg] = useState("");
+  const [billings, setBillings] = useState([]);
+  const [billingData, setBillingData] = useState({
+    suitType: "سادہ سوٹ",
+    quantity: 0,
+    price: 0,
+  });
+  const [userData, setUserData] = useState({
+    userName: "",
+    userId: "",
+    phone: "",
+    address: "",
+  });
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [profileImg, setProfileImg] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [delId, setDelId] = useState("");
   const [delModal, setDelModal] = useState(false);
-  const [clientId, setClientId] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [blogId, setBlogId] = useState("");
   const [viewData, setViewData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const uploadImage = async (image) => {
     const formData = new FormData();
     const imgFile = image.target.files[0];
@@ -56,26 +78,35 @@ export function UseUsers() {
   const imgDeleteHandler = () => {
     setProfileImg("");
   };
-
+  const handleAddBilling = () => {
+    if (billingData.suitType && billingData.quantity && billingData.price) {
+      setBillings([...billings, billingData]);
+      setBillingData({
+        suitType: "سادہ سوٹ",
+        quantity: 0,
+        price: 0,
+      });
+    } else {
+      Toast("Please Fill All Fields!", "error", "colored");
+    }
+  };
   const updateHandler = (item) => {
-    setClientId(item?._id);
-    setName(item?.fullName);
-    setEmail(item?.email);
-    setAddress(item?.address);
-    setContact(item?.contact);
-    setProfileImg(item?.img);
+    setBlogId(item?._id);
+    setIsEdit(true);
+    setBillings(item?.billings);
+    setUserData(item?.userData);
   };
 
   const ctaUpdateHandler = async (handleCloseUpdate) => {
     const data = {
-      email: email,
-      fullName:name,
-      address,
-      contact,
-      img: profileImg,
-      _id: clientId,
+      billings,
+      userData,
+      _id: blogId,
     };
-    dispatch(doUpdateUser(data, Toast, handleCloseUpdate, setSubmitLoading, user));
+    dispatch(
+      doUpdateBlog(data, Toast, handleCloseUpdate, setSubmitLoading, user)
+    );
+    setIsEdit(false);
   };
 
   const deleteHandler = (id) => {
@@ -83,35 +114,24 @@ export function UseUsers() {
     setDelModal(!delModal);
   };
   const ctaDeleteHandler = () => {
-    dispatch(doDeleteClient(delId, Toast, setSubmitLoading, setDelModal, user));
+    dispatch(doDeleteBlog(delId, Toast, setSubmitLoading, setDelModal, user));
   };
   const handleCloseModal = () => {
     setOpenModal(!openModal);
+  };
+
+  const addBlogHandler = (handleCloseUpdate) => {
+    let data = {
+      billings,
+      userData,
+    };
+    dispatch(doAddBlog(data, Toast, setSubmitLoading, user, handleCloseUpdate));
   };
   const dataViewHandler = (row) => {
     handleCloseModal();
     setViewData(row);
   };
 
-  const navigateHandler = (id) => {
-    console.log(id, "id");
-    navigate(`/products/${id}`);
-  };
-  const publishHandler = (row) => {
-    const data = {
-      publish: !row?.publish,
-      _id: row?._id,
-    };
-    dispatch(
-      doUpdateUser(
-        data,
-        Toast,
-        setSubmitLoading,
-        user,
-        data?.publish ? "publishing" : "UnPublishing"
-      )
-    );
-  };
   return [
     {
       getLoading,
@@ -140,8 +160,20 @@ export function UseUsers() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler,
+      blogTitle,
+      description,
+      setDescription,
+      setBlogTitle,
+      addBlogHandler,
+      isEdit,
+      setIsEdit,
+      billingData,
+      setBillingData,
+      handleAddBilling,
+      billings,
+      setBillings,
+      userData,
+      setUserData,
     },
   ];
 }

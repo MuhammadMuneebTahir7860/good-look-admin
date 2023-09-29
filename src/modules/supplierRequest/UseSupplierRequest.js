@@ -2,21 +2,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../commonComponents/toast/Toast";
 import {
-  doDeleteClient,
-  doGetClients,
+  deleteSupplierRequest,
+  doGetSupplierRequests,
+} from "../../redux/actions/ApplySupplierAction";
+import {
   doUpdateClient,
-  doUpdateUser,
 } from "../../redux/actions/ClientActions";
-import { useNavigate } from "react-router-dom";
 
-export function UseUsers() {
+export function UseSupplierRequest() {
   const [getLoading, setGetLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(doGetClients(setGetLoading));
+    dispatch(doGetSupplierRequests(setGetLoading,Toast));
   }, []);
-  const data = useSelector((state) => state.ClientReducer.clients);
-  const user = useSelector((state) => state.AuthReducer.user);
+  const data = useSelector((state) => state.ApplySupplierReducer.applyRequests);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -29,7 +28,6 @@ export function UseUsers() {
   const [clientId, setClientId] = useState("");
   const [viewData, setViewData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const uploadImage = async (image) => {
     const formData = new FormData();
     const imgFile = image.target.files[0];
@@ -59,7 +57,7 @@ export function UseUsers() {
 
   const updateHandler = (item) => {
     setClientId(item?._id);
-    setName(item?.fullName);
+    setName(item?.name);
     setEmail(item?.email);
     setAddress(item?.address);
     setContact(item?.contact);
@@ -69,21 +67,22 @@ export function UseUsers() {
   const ctaUpdateHandler = async (handleCloseUpdate) => {
     const data = {
       email: email,
-      fullName:name,
+      name,
       address,
       contact,
       img: profileImg,
       _id: clientId,
     };
-    dispatch(doUpdateUser(data, Toast, handleCloseUpdate, setSubmitLoading, user));
+    // dispatch(doUpdateClient(data, Toast, handleCloseUpdate, setSubmitLoading));
   };
-
   const deleteHandler = (id) => {
     setDelId(id);
     setDelModal(!delModal);
   };
   const ctaDeleteHandler = () => {
-    dispatch(doDeleteClient(delId, Toast, setSubmitLoading, setDelModal, user));
+    dispatch(
+      deleteSupplierRequest(delId, Toast, setSubmitLoading, setDelModal)
+    );
   };
   const handleCloseModal = () => {
     setOpenModal(!openModal);
@@ -93,25 +92,6 @@ export function UseUsers() {
     setViewData(row);
   };
 
-  const navigateHandler = (id) => {
-    console.log(id, "id");
-    navigate(`/products/${id}`);
-  };
-  const publishHandler = (row) => {
-    const data = {
-      publish: !row?.publish,
-      _id: row?._id,
-    };
-    dispatch(
-      doUpdateUser(
-        data,
-        Toast,
-        setSubmitLoading,
-        user,
-        data?.publish ? "publishing" : "UnPublishing"
-      )
-    );
-  };
   return [
     {
       getLoading,
@@ -140,8 +120,6 @@ export function UseUsers() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler,
     },
   ];
 }

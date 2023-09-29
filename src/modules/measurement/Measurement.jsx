@@ -2,9 +2,9 @@ import React from "react";
 import CommonTableLoader from "../../commonComponents/commonTableLoader/CommonTableLoader";
 import NewTable from "./newTable/NewTable";
 import TransitionsModal from "../../commonComponents/transitionsModal/TransitionsModal";
-import { UseUsers } from "./UseUsers";
-import UsersViewModal from "./UsersViewModal";
-export default function Users() {
+import { UseMeasurement } from "./UseMeasurement";
+import MeasurementViewModal from "./MeasurementViewModal";
+export default function Measurement() {
   const [
     {
       getLoading,
@@ -33,10 +33,22 @@ export default function Users() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler
+      blogTitle,
+      description,
+      setDescription,
+      setBlogTitle,
+      addBlogHandler,
+      isEdit,
+      setIsEdit,
+      billingData,
+      setBillingData,
+      handleAddBilling,
+      billings,
+      setBillings,
+      userData,
+      setUserData,
     },
-  ] = UseUsers();
+  ] = UseMeasurement();
   if (getLoading) {
     return <CommonTableLoader />;
   }
@@ -48,26 +60,28 @@ export default function Users() {
         setOpen={setDelModal}
       />
       <NewTable
-        title={"All Users"}
+        title={"Measurements"}
         tableHeadings={[
           {
-            id: "fullName",
-            Label: "Full Name",
+            id: "userName",
+            Label: "User name",
           },
           {
-            id: "email",
-            Label: "Email",
+            id: "userId",
+            Label: "User ID",
           },
           {
-            id: "registeredAt",
-            Label: "Registered At",
+            id: "phone",
+            Label: "Phone",
           },
-         
           {
-            id: "Details",
-            Label: "Details",
+            id: "address",
+            Label: "Address",
           },
-
+          {
+            id: "createdAt",
+            Label: "Created At",
+          },
           {
             id: "actions",
             Label: "Actions",
@@ -78,11 +92,18 @@ export default function Users() {
         profileImg={profileImg}
         setProfileImg={setProfileImg}
         updateHandler={updateHandler}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
         uploadImage={uploadImage}
         loading={loading}
         imgDeleteHandler={imgDeleteHandler}
         name={name}
+        blogTitle={blogTitle}
+        description={description}
+        setBlogTitle={setBlogTitle}
+        setDescription={setDescription}
         setName={setName}
+        addBlogHandler={addBlogHandler}
         contact={contact}
         setContact={setContact}
         address={address}
@@ -91,19 +112,25 @@ export default function Users() {
         setEmail={setEmail}
         submitLoading={submitLoading}
         deleteHandler={deleteHandler}
-        navigateHandler={navigateHandler}
         delModal={delModal}
         setDelModal={setDelModal}
         ctaDeleteHandler={ctaDeleteHandler}
         dataViewHandler={dataViewHandler}
-        publishHandler={publishHandler}
+        billingData={billingData}
+        setBillingData={setBillingData}
+        handleAddBilling={handleAddBilling}
+        billings={billings}
+        setBillings={setBillings}
+        userData={userData}
+        setUserData={setUserData}
       />
-      <UsersViewModal
-        openModal={openModal}
-        handleCloseModal={handleCloseModal}
-        viewData={viewData}
-        navigateHandler={navigateHandler}
-      />
+      {openModal && (
+        <MeasurementViewModal
+          openModal={openModal}
+          handleCloseModal={handleCloseModal}
+          viewData={viewData}
+        />
+      )}
     </>
   );
 }

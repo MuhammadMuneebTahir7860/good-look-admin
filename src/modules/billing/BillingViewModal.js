@@ -9,7 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 
-export default function OrderViewModal({
+export default function BillingViewModal({
   openModal,
   handleCloseModal,
   viewData,
@@ -49,55 +49,74 @@ export default function OrderViewModal({
           <Box>
             <Grid container sx={{ marginBottom: 2 }} spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Name:
+                User Name:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.userId?.name}
+                {viewData?.userData?.userName}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Email:
+                User Id:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.userId?.email}
+                {viewData?.userData?.userId}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Product Title:
+                User Phone:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.productId?.title}
+                {viewData?.userData?.phone}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Seller Name:
+                User address:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.sellerId?.name}
+                {viewData?.userData?.address}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Seller Email:
+                Billings:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.sellerId?.email}
+                {viewData?.billings?.map((billing, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <span>
+                        Suit Type: {billing?.suitType}, Quantity:{" "}
+                        {billing?.quantity}, Price: {billing?.price}
+                      </span>
+                    </div>
+                  </li>
+                ))}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Amount:
+                Total Price:
               </Grid>
               <Grid align="right" item xs={6}>
-                {viewData?.amount}
+                {viewData?.billings
+                  .map((billing) => Number(billing?.price))
+                  .reduce((acc, price) => acc + price, 0)
+                  ?.toString()}
               </Grid>
             </Grid>
             <Grid sx={{ marginBottom: 2 }} container spacing={2}>
               <Grid sx={{ fontWeight: "bold" }} item xs={6}>
-                Registered at:
+                CreatedAt:
               </Grid>
               <Grid align="right" item xs={6}>
                 {new Date(viewData?.createdAt)?.toLocaleDateString()}

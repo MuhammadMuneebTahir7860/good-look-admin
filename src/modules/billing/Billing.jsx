@@ -2,9 +2,9 @@ import React from "react";
 import CommonTableLoader from "../../commonComponents/commonTableLoader/CommonTableLoader";
 import NewTable from "./newTable/NewTable";
 import TransitionsModal from "../../commonComponents/transitionsModal/TransitionsModal";
-import OrderViewModal from "./OrderViewModal";
-import { UserOrder } from "./UseOrder";
-export default function Order() {
+import { UseBilling } from "./UseBilling";
+import BillingViewModal from "./BillingViewModal";
+export default function Billing() {
   const [
     {
       getLoading,
@@ -33,12 +33,22 @@ export default function Order() {
       viewData,
       handleCloseModal,
       openModal,
-      navigateHandler,
-      publishHandler,
-      ctaApprovedHandler,
-      
+      blogTitle,
+      description,
+      setDescription,
+      setBlogTitle,
+      addBlogHandler,
+      isEdit,
+      setIsEdit,
+      billingData,
+      setBillingData,
+      handleAddBilling,
+      billings,
+      setBillings,
+      userData,
+      setUserData,
     },
-  ] = UserOrder();
+  ] = UseBilling();
   if (getLoading) {
     return <CommonTableLoader />;
   }
@@ -50,35 +60,32 @@ export default function Order() {
         setOpen={setDelModal}
       />
       <NewTable
-        title={"All Orders"}
+        title={"Billings"}
         tableHeadings={[
           {
-            id: "title",
-            Label: "Title",
+            id: "userName",
+            Label: "User name",
           },
           {
-            id: "seller",
-            Label: "Seller ",
+            id: "userId",
+            Label: "User ID",
           },
           {
-            id: "buyer",
-            Label: "Buyer",
+            id: "phone",
+            Label: "Phone",
           },
           {
-            id: "amount",
-            Label: "Amount",
+            id: "address",
+            Label: "Address",
           },
-
           {
-            id: "registeredAt",
-            Label: "Registered At",
+            id: "Total",
+            Label: "Total",
           },
-
           {
-            id: "Details",
-            Label: "Details",
+            id: "createdAt",
+            Label: "Created At",
           },
-
           {
             id: "actions",
             Label: "Actions",
@@ -89,12 +96,18 @@ export default function Order() {
         profileImg={profileImg}
         setProfileImg={setProfileImg}
         updateHandler={updateHandler}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
         uploadImage={uploadImage}
         loading={loading}
         imgDeleteHandler={imgDeleteHandler}
         name={name}
-        ctaApprovedHandler={ctaApprovedHandler}
+        blogTitle={blogTitle}
+        description={description}
+        setBlogTitle={setBlogTitle}
+        setDescription={setDescription}
         setName={setName}
+        addBlogHandler={addBlogHandler}
         contact={contact}
         setContact={setContact}
         address={address}
@@ -103,18 +116,25 @@ export default function Order() {
         setEmail={setEmail}
         submitLoading={submitLoading}
         deleteHandler={deleteHandler}
-        navigateHandler={navigateHandler}
         delModal={delModal}
         setDelModal={setDelModal}
         ctaDeleteHandler={ctaDeleteHandler}
         dataViewHandler={dataViewHandler}
-        publishHandler={publishHandler}
+        billingData={billingData}
+        setBillingData={setBillingData}
+        handleAddBilling={handleAddBilling}
+        billings={billings}
+        setBillings={setBillings}
+        userData={userData}
+        setUserData={setUserData}
       />
-      <OrderViewModal
-        openModal={openModal}
-        handleCloseModal={handleCloseModal}
-        viewData={viewData}
-      />
+      {openModal && (
+        <BillingViewModal
+          openModal={openModal}
+          handleCloseModal={handleCloseModal}
+          viewData={viewData}
+        />
+      )}
     </>
   );
 }

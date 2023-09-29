@@ -9,11 +9,15 @@ import OrderReducer from "./reducers/OrderReducer";
 import BlogReducer from "./reducers/BlogReducer";
 import ServiceReducer from "./reducers/ServiceReducer";
 import WorkerReducer from "./reducers/WorkerReducer";
+import BillingReducer from "./reducers/BillingReducer";
+import MeasurementReducer from './reducers/MeasurementReducer'
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
+  BillingReducer,
   ServiceReducer,
   WorkerReducer,
+  MeasurementReducer,
   SupplierReducer,
   ClientReducer,
   AuditLogsReducer,
