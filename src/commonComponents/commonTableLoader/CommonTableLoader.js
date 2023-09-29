@@ -9,7 +9,7 @@ export default function CommonTableLoader() {
       <ThreeCircles
         height="60"
         width="60"
-        color="tomato"
+        color="#DEB18A"
         wrapperStyle={{}}
         wrapperClass=""
         visible={true}

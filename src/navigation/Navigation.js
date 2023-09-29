@@ -24,6 +24,7 @@ import AppointmentBookings from "../modules/appointmentBooking/AppointmentBookin
 import Schedule from "../modules/schedule/Schedule";
 import Billing from "../modules/billing/Billing";
 import Measurement from "../modules/measurement/Measurement";
+import Dashboard from "../modules/dashboard/Dashboard";
 export default function Navigation() {
   const authState = useSelector((state) => state.AuthReducer.isUserLoggedIn);
   const role = useSelector((state) => state.AuthReducer.user);
@@ -47,6 +48,14 @@ export default function Navigation() {
             </PrivateRouting>
           }
         >
+           <Route
+            path="/"
+            element={
+              <PrivateRouting isAllowed={authState}>
+                {role.role == "admin" && <Dashboard />}
+              </PrivateRouting>
+            }
+          />
           <Route
             path="/services"
             element={

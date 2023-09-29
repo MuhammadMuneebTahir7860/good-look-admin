@@ -10,12 +10,14 @@ import BlogReducer from "./reducers/BlogReducer";
 import ServiceReducer from "./reducers/ServiceReducer";
 import WorkerReducer from "./reducers/WorkerReducer";
 import BillingReducer from "./reducers/BillingReducer";
-import MeasurementReducer from './reducers/MeasurementReducer'
+import MeasurementReducer from "./reducers/MeasurementReducer";
+import DashboardStatsReducer from "./reducers/DashboardStatsReducer";
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
   BillingReducer,
   ServiceReducer,
+  DashboardStatsReducer,
   WorkerReducer,
   MeasurementReducer,
   SupplierReducer,

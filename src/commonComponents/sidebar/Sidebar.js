@@ -43,7 +43,7 @@ function Sidebar(props) {
     {
       text: "Dashboard",
       icon: <QueryStatsIcon />,
-      path: "/customers",
+      path: "/",
     },
     {
       text: "Services",
